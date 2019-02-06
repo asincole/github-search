@@ -1,0 +1,28 @@
+# Build Angular apps using Azure Pipelines
+pool:
+  vmImage: 'Ubuntu 16.04'
+  
+steps:
+- task: NodeTool@0
+# Specify the ode version you need for your app here
+  inputs:
+    versionSpec: '10.x'
+  
+- script: |
+    npm install
+    npm install -g @angular/cli
+    ng build --prod 
+# Zip build folder up to prepare for azure web app deployment
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
+  inputs:
+    rootFolderOrFile: 'dist/<app-name>'
+    includeRootFolder: false
+
+#  Deploy archived folder
+- task: AzureRmWebAppDeployment@3
+  displayName: 'Azure WebApp Deployment'
+  inputs:
+    azureSubscription: 'github-search'
+    WebAppName: 'githubsearch'
+Package: $(System.ArtifactsDirectory)/**/*.zip
