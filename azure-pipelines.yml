@@ -25,4 +25,4 @@ steps:
   inputs:
     azureSubscription: 'github-search'
     WebAppName: 'githubsearch'
-Package: $(System.ArtifactsDirectory)/**/*.zip
+    Package: $(System.ArtifactsDirectory)/**/*.zip
