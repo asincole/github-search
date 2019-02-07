@@ -1,0 +1,38 @@
+<nz-input-group class="search-bar" [nzSuffix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="search github users" [formControl]="query" (keyup.enter)="search()">
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <i style="cursor: pointer" nz-icon type="search" (click)="search()"></i>
+</ng-template>
+
+
+<div class="nocontent" *ngIf="!queryResult.total_count">
+  <h1>Hello, Use the Search Bar above to search for Github Users</h1>
+</div>
+
+<div class="outter-wrapper" *ngIf="queryResult.total_count">
+  <div class="search-meta">
+    <div class="total-count">
+      <h2>Total Result Count: {{queryResult.total_count}}</h2>
+    </div>
+  </div>
+
+  <div class="inner-wrapper">
+    <div class="user" *ngFor="let user of queryResult.items; let i=index">
+      <a routerLink="/user/{{user.login}}">
+        <img src="{{user.avatar_url}}" alt="{{user.login}} avatar">
+        <h2>{{user.login}}</h2>
+      </a>
+    </div>
+  </div>
+
+  <div class="pagination">
+
+    <nz-pagination *ngIf="queryResult.total_count" [nzPageIndex]="currentPage" [nzPageSize]="30" [nzTotal]="queryResult.total_count"
+      (nzPageIndexChange)="search($event)" ></nz-pagination>
+  </div>
+</div>
+
+
+
+<!-- {{users$ | json}} -->
