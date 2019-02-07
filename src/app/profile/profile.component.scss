@@ -1,0 +1,30 @@
+.wrapper {
+    padding: 5px;
+    margin: 20px;
+
+    h1 a {
+        font-size: .8em;
+    }
+    p {
+        font-weight: bold;
+    }
+    img {
+        width: 100%;
+        border-radius: 50%;
+        box-shadow: 0px 0px 2px gray;
+    }
+    
+    .meta {
+        display: flex;
+        gap: 25px;
+        align-items: end;
+        .count {
+            font-size: 2em;
+            margin: 0;
+       }
+        .label {
+            font-weight: bold;
+       }
+    }
+    
+}

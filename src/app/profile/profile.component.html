@@ -1,0 +1,58 @@
+<div class="wrapper">
+  
+  <nz-skeleton *ngIf="!user" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
+  <div nz-row nzGutter="16" *ngIf="user">
+    <div nz-col class="gutter-row" [nzMd]="{ span: 5, offset: 4 }" [nzSm]="{ span: 24, offset: 0 }">
+      <img src="{{user.avatar_url}}" alt="{{user.login}} avatar">
+    </div>
+    <div nz-col class="gutter-row" [nzMd]="{ span: 15 }" [nzSm]="{ span: 24, offset: 0 }">
+      <h1>{{user.name}} <a href="{{user.html_url}}" target="_blank" rel="noopener noreferrer">@{{user.login}}</a> </h1>
+      <p>Bio: {{user.bio}}</p>
+      <p><i nz-icon type="pushpin" theme="outline"></i> {{user.location}}</p>
+      <p><i nz-icon type="global" theme="outline"></i> <a href="{{user.blog}}" target="_blank" rel="noopener noreferrer">
+          {{user.blog}}</a></p>
+      <div class="meta">
+        <div>
+          <p class="count">{{user.followers? user.followers: 0}}</p>
+          <p class="label">Followers</p>
+        </div>
+        <div>
+          <p class="count">{{user.following? user.following: 0}}</p>
+          <p class="label">Following</p>
+        </div>
+        <div>
+          <p class="count">{{user.public_repos? user.public_repos : 0}}</p>
+          <p class="label">Repos</p>
+        </div>
+        <div>
+          <p class="count">{{user.public_gists? user.public_gists : 0}} </p>
+          <p class="label">Gists</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- show preloader skeleton if repository data is not loaded yet -->
+  <nz-skeleton *ngIf="!userRepos" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
+  <!-- hide data if repository data is not loaded yet -->
+  <div nz-row nzGutter="16" *ngIf="userRepos">
+    <div nz-col class="gutter-row" nzSpan="24">
+
+
+      <nz-list [nzDataSource]="userRepos" [nzItemLayout]="'vertical'" [nzRenderItem]="item">
+        <ng-template #item let-item>
+          <nz-list-item [nzContent]="item.content" [nzActions]="[starAction,likeAction,msgAction]">
+            <ng-template #starAction><i nz-icon type="star" style="margin-right: 8px;"></i> {{item.stargazers_count}}</ng-template>
+            <ng-template #likeAction><i nz-icon type="eye" style="margin-right: 8px;"></i> {{item.watchers_count}}</ng-template>
+            <ng-template #msgAction><i nz-icon type="fork" style="margin-right: 8px;"></i> {{item.forks}}</ng-template>
+            <nz-list-item-meta [nzTitle]="nzTitle" [nzDescription]="item.description">
+              <ng-template #nzTitle><a href="{{item.html_url}}" target="_blank" rel="noopener noreferrer">{{item.name}}</a></ng-template>
+            </nz-list-item-meta>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
+
+
+    </div>
+  </div>
+</div>
