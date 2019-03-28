@@ -26,6 +26,7 @@
               "src/favicon.ico",
               "src/assets",
               "src/web.config",
+              "src/_redirects"
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
